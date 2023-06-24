@@ -103,8 +103,7 @@ export default function Questions(props) {
                 {isLastQuestion() && <input type="submit" value="Submit" onSubmit={onSubmit}/>}
             </form>
 
-            <div class="bkg">
-            </div>
+
             
         </>
     )
