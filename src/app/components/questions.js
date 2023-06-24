@@ -41,11 +41,6 @@ export default function Questions(props) {
                         <input type="text" value={currentResponse} onChange={(e) => {
                             setCurrentResponse(e.target.value);
                         }} />
-                        <button onClick={(e) => {
-                            console.log(currentResponse);
-                            handleNextQuestion(currentResponse);
-                            e.preventDefault();
-                        }}>Next</button>
                     </>
                 );
             case 'multi-select':
@@ -69,6 +64,13 @@ export default function Questions(props) {
             <h1>Questions</h1> 
             <form>
                 {renderQuestion()}
+                {!isLastQuestion() && 
+                    <button onClick={(e) => {
+                        console.log(currentResponse);
+                        handleNextQuestion(currentResponse);
+                        e.preventDefault();
+                    }}>Next</button>
+                }
                 {isLastQuestion() && <input type="submit" value="Submit" />}
             </form>
         </>
