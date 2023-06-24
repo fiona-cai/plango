@@ -89,8 +89,9 @@ export default function Questions(props) {
 
     return (
         <>
-            <h1>Questions</h1> 
-            <form>
+            <h1 className='px-12 py-2 mt-24 text-center text-white font-bold text-2xl'>PlanGO</h1> 
+            <h1 className='text-center text-white font-regular text-sm'>Welcome</h1> 
+            <form className='text-center mt-24'>
                 {renderQuestion()}
                 {!isLastQuestion() && 
                     <button onClick={(e) => {
@@ -101,6 +102,10 @@ export default function Questions(props) {
                 }
                 {isLastQuestion() && <input type="submit" value="Submit" onSubmit={onSubmit}/>}
             </form>
+
+            <div class="bkg">
+            </div>
+            
         </>
     )
 }
