@@ -12,7 +12,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
-  background: var(--grad, linear-gradient(180deg, #122050 0%, rgba(0, 255, 162, 0.41) 75%));
+  background: var(--grad, linear-gradient(180deg, #122050 0%, rgba(99, 255, 198, 0.41) 100%));
 }
 
 .bkg {
