@@ -2,6 +2,7 @@
   "name": "wafflehacks",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -9,7 +10,9 @@
     "@turf/turf": "^6.5.0",
     "axois": "^0.0.1-security",
     "mapbox-gl": "^1.13.3 <2.0.0",
+    "framer-motion": "^10.12.17",
     "react": "^18.2.0",
+    "react-animate-on-scroll": "^2.1.7",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.0",
     "react-scripts": "5.0.1",

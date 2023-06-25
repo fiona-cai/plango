@@ -15,15 +15,6 @@ body {
   background: var(--grad, linear-gradient(180deg, #122050 0%, rgba(99, 255, 198, 0.41) 100%));
 }
 
-.bkg {
-  top:0;
-  left:0;
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  background-image: var(--grad, linear-gradient(0deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%));
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

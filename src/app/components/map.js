@@ -2,15 +2,33 @@ import React from 'react';
 import './css/map.css';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import axios from 'axios';
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions'
 import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 const startLocation = [5.1107969, 52.0700474];
 
-class Map extends React.Component {
-    
+const Map = ({responses}) => {
+    [responses]
+    useEffect(() => {
+        const url = `/dest/${responses[1]}/${5}/${responses[3]}`;
+        axios({
+            method: 'get',
+            url: url,
+        })
+        .then((response) => {
+            console.log(response);
+            setData(response.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }, [responses]);
 
+    useEffect(() => {
+        console.log(data);
+    }, [data]);
   assembleQueryURL = () => {
     // Store the location of the truck in a constant called coordinates
     const coordinates = [startLocation, [5.109492, 52.0761757], [5.1164711, 52.0739468], [5.1226603, 52.0825339], [5.1193458, 52.0661634], [5.1051998, 52.0663328]];

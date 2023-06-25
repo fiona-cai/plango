@@ -1,20 +1,23 @@
 import React, { useState } from 'react'
+import { motion, Variants, useMotionTemplate, cubicBezier, easeIn, easeOut } from "framer-motion";
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const questions = [
     {
-        question: "What is your name 1?",
+        question: "What's your name?",
         type: "text",
     },
     {
-        question: "What is your name 2?",
+        question: "Hi {{name}}! Where are you headed on your next vacation?",
         type: "text",
     },
     {
-        question: "What is your name 3?",
+        question: "Got it. When are you planning to arrive and depart?",
         type: "text",
     },
     {
-        question: "What is your name 4?",
+        question: "Last step - select all activites below that interest you",
         type: "multi-select",
         options: [
             'option 1',
@@ -22,14 +25,21 @@ const questions = [
             'option 3',
         ],
     },
+    {
+        question: "Submit!",
+        type: "submit",
+    },
 ]
 
-export default function Questions(props) {
+export default function Questions({responses, setResponses}) {
     const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [responses, setResponses] = useState([]);
+
     const [currentResponse, setCurrentResponse] = useState('');
     const [currentMultiResponse, setCurrentMultiResponse] = useState([]);
 
+    useEffect(() => {
+        setResponses([]);
+    }, []);
 
     const handleNextQuestion = (response) => {
         setResponses([...responses, response]);
@@ -41,8 +51,9 @@ export default function Questions(props) {
         return currentQuestion === questions.length - 1;
     }
 
-    const onSubmit = (e) => {
-        handleNextQuestion(questions[currentQuestion].type === 'multi-select' ? currentMultiResponse : currentResponse);
+    const navigate = useNavigate();
+    const onSubmit = async(e) => {
+        navigate('/map');
     }
 
     const renderQuestion = () => {
@@ -51,7 +62,7 @@ export default function Questions(props) {
             case "text":
                 return (
                     <>
-                        <p>{question.question}</p>
+                        <p className='text-white'>{question.question}</p>
                         <input type="text" value={currentResponse} onChange={(e) => {
                             setCurrentResponse(e.target.value);
                         }} />
@@ -89,20 +100,56 @@ export default function Questions(props) {
 
     return (
         <>
-            <h1 className='px-12 py-2 mt-24 text-center text-white font-bold text-2xl'>PlanGO</h1> 
-            <h1 className='text-center text-white font-regular text-sm'>Welcome</h1> 
-            <form className='text-center mt-24'>
-                {renderQuestion()}
-                {!isLastQuestion() && 
-                    <button onClick={(e) => {
-                        console.log(currentResponse);
-                        handleNextQuestion(questions[currentQuestion].type === 'multi-select' ? currentMultiResponse : currentResponse);
-                        e.preventDefault();
-                    }}>Next</button>
-                }
-                {isLastQuestion() && <input type="submit" value="Submit" onSubmit={onSubmit}/>}
-            </form>
+            
+            <motion.div
+                initial={{ opacity: 1, y: 200, scale:2}}
+                animate={{ opacity: [1, 0.5, 0.5,0.5,0.75], y: 0, scale:1}}
+                transition={{
+                    duration: 1.5,
+                    delay: 1.2,
+                    ease: "easeIn"
+                }}
+            >
+                <h1 className='px-12 py-2 mt-24 text-center text-white font-bold text-2xl'>PlanGO</h1> 
+            
+            </motion.div>
+   
+            <motion.div
+                initial={{ opacity: 0, }}
+                animate={{ opacity: 0.5 }}
+                transition={{
+                    duration: 1,
+                    delay: 2.5,
+                    ease: "easeIn"
+                }}
+            >
+                <h1 className='text-center text-white font-regular text-sm'>Tegether, let's plan your next adventure</h1> 
+            
+            </motion.div>
 
+
+            <motion.div
+                initial={{ opacity: 0, y: 120, scale:2}}
+                animate={{ opacity: 1, y: 0}}
+                transition={{
+                    duration: 1,
+                    delay: 5,
+                    ease: "easeIn"
+                }}
+            >
+                <form className='text-center font-xl mt-36'>
+                    {renderQuestion()}
+                    {!isLastQuestion() && 
+                        <button onClick={(e) => {
+                            console.log(currentResponse);
+                            handleNextQuestion(questions[currentQuestion].type === 'multi-select' ? currentMultiResponse : currentResponse);
+                            e.preventDefault();
+                        }} className='text-white p-4'>Next</button>
+                    }
+                    {isLastQuestion() && <button onClick={onSubmit} className='text-white p-4'>Submit</button>}
+                </form>
+
+            </motion.div>
 
             
         </>
