@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { motion, Variants, useMotionTemplate, cubicBezier, easeIn, easeOut } from "framer-motion";
 
 const questions = [
     {
@@ -51,7 +52,7 @@ export default function Questions(props) {
             case "text":
                 return (
                     <>
-                        <p>{question.question}</p>
+                        <p className='text-white'>{question.question}</p>
                         <input type="text" value={currentResponse} onChange={(e) => {
                             setCurrentResponse(e.target.value);
                         }} />
@@ -89,20 +90,56 @@ export default function Questions(props) {
 
     return (
         <>
-            <h1 className='px-12 py-2 mt-24 text-center text-white font-bold text-2xl'>PlanGO</h1> 
-            <h1 className='text-center text-white font-regular text-sm'>Welcome</h1> 
-            <form className='text-center mt-24'>
-                {renderQuestion()}
-                {!isLastQuestion() && 
-                    <button onClick={(e) => {
-                        console.log(currentResponse);
-                        handleNextQuestion(questions[currentQuestion].type === 'multi-select' ? currentMultiResponse : currentResponse);
-                        e.preventDefault();
-                    }}>Next</button>
-                }
-                {isLastQuestion() && <input type="submit" value="Submit" onSubmit={onSubmit}/>}
-            </form>
+            
+            <motion.div
+                initial={{ opacity: 1, y: 200}}
+                animate={{ opacity: 0.5, y: 0}}
+                transition={{
+                    duration: 1,
+                    delay: 2,
+                    ease: "easeIn"
+                }}
+            >
+                <h1 className='px-12 py-2 mt-24 text-center text-white font-bold text-2xl'>PlanGO</h1> 
+            
+            </motion.div>
+   
+            <motion.div
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                    duration: 1,
+                    delay: 2.5,
+                    ease: "easeIn"
+                }}
+            >
+                <h1 className='text-center text-white font-regular text-sm'>Welcome</h1> 
+            
+            </motion.div>
 
+
+            <motion.div
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                    duration: 1,
+                    delay: 4,
+                    ease: "easeIn"
+                }}
+            >
+                <form className='text-center mt-24'>
+                    {renderQuestion()}
+                    {!isLastQuestion() && 
+                        <button onClick={(e) => {
+                            console.log(currentResponse);
+                            handleNextQuestion(questions[currentQuestion].type === 'multi-select' ? currentMultiResponse : currentResponse);
+                            e.preventDefault();
+                        }}>Next</button>
+                    }
+                    {isLastQuestion() && <input type="submit" value="Submit" onSubmit={onSubmit}/>}
+                </form>
+
+            </motion.div>
 
             
         </>
