@@ -3,7 +3,7 @@ import { motion, Variants, useMotionTemplate, cubicBezier, easeIn, easeOut } fro
 
 const questions = [
     {
-        question: "What is your name 1?",
+        question: "What's your name?",
         type: "text",
     },
     {
@@ -92,11 +92,11 @@ export default function Questions(props) {
         <>
             
             <motion.div
-                initial={{ opacity: 1, y: 200}}
-                animate={{ opacity: 0.5, y: 0}}
+                initial={{ opacity: 1, y: 200, scale:2}}
+                animate={{ opacity: [1, 0.5, 0.5,0.5,0.75], y: 0, scale:1}}
                 transition={{
-                    duration: 1,
-                    delay: 2,
+                    duration: 1.5,
+                    delay: 1.2,
                     ease: "easeIn"
                 }}
             >
@@ -105,36 +105,36 @@ export default function Questions(props) {
             </motion.div>
    
             <motion.div
-                initial={{ opacity: 0, y: 100 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, }}
+                animate={{ opacity: 0.5 }}
                 transition={{
                     duration: 1,
                     delay: 2.5,
                     ease: "easeIn"
                 }}
             >
-                <h1 className='text-center text-white font-regular text-sm'>Welcome</h1> 
+                <h1 className='text-center text-white font-regular text-sm'>Tegether, let's plan your next adventure</h1> 
             
             </motion.div>
 
 
             <motion.div
-                initial={{ opacity: 0, y: 100 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 120, scale:2}}
+                animate={{ opacity: 1, y: 0}}
                 transition={{
                     duration: 1,
-                    delay: 4,
+                    delay: 5,
                     ease: "easeIn"
                 }}
             >
-                <form className='text-center mt-24'>
+                <form className='text-center font-xl mt-36'>
                     {renderQuestion()}
                     {!isLastQuestion() && 
                         <button onClick={(e) => {
                             console.log(currentResponse);
                             handleNextQuestion(questions[currentQuestion].type === 'multi-select' ? currentMultiResponse : currentResponse);
                             e.preventDefault();
-                        }}>Next</button>
+                        }} className='text-white p-4'>Next</button>
                     }
                     {isLastQuestion() && <input type="submit" value="Submit" onSubmit={onSubmit}/>}
                 </form>
