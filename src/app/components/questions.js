@@ -7,15 +7,15 @@ const questions = [
         type: "text",
     },
     {
-        question: "What is your name 2?",
+        question: "Hi {{name}}! Where are you headed on your next vacation?",
         type: "text",
     },
     {
-        question: "What is your name 3?",
+        question: "Got it. When are you planning to arrive and depart?",
         type: "text",
     },
     {
-        question: "What is your name 4?",
+        question: "Last step - select all activites below that interest you",
         type: "multi-select",
         options: [
             'option 1',
