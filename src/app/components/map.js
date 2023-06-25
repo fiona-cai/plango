@@ -1,17 +1,37 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import './css/map.css';
+import axios from 'axios';
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
     
 
 
-const Map = () => {
+const Map = ({responses}) => {
     const mapContainerRef = useRef(null);
-
+    const [data, setData] = useState({});
     const [lng, setLng] = useState(5);
     const [lat, setLat] = useState(34);
     const [zoom, setZoom] = useState(1.5);
+
+    useEffect(() => {
+        const url = `/dest/${responses[1]}/${5}/${responses[3]}`;
+        axios({
+            method: 'get',
+            url: url,
+        })
+        .then((response) => {
+            console.log(response);
+            setData(response.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }, [responses]);
+
+    useEffect(() => {
+        console.log(data);
+    }, [data]);
 
     // Initialize map when component mounts
     useEffect(() => {

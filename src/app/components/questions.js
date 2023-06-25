@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { motion, Variants, useMotionTemplate, cubicBezier, easeIn, easeOut } from "framer-motion";
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const questions = [
     {
@@ -23,14 +25,21 @@ const questions = [
             'option 3',
         ],
     },
+    {
+        question: "Submit!",
+        type: "submit",
+    },
 ]
 
-export default function Questions(props) {
+export default function Questions({responses, setResponses}) {
     const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [responses, setResponses] = useState([]);
+
     const [currentResponse, setCurrentResponse] = useState('');
     const [currentMultiResponse, setCurrentMultiResponse] = useState([]);
 
+    useEffect(() => {
+        setResponses([]);
+    }, []);
 
     const handleNextQuestion = (response) => {
         setResponses([...responses, response]);
@@ -42,8 +51,9 @@ export default function Questions(props) {
         return currentQuestion === questions.length - 1;
     }
 
-    const onSubmit = (e) => {
-        handleNextQuestion(questions[currentQuestion].type === 'multi-select' ? currentMultiResponse : currentResponse);
+    const navigate = useNavigate();
+    const onSubmit = async(e) => {
+        navigate('/map');
     }
 
     const renderQuestion = () => {
@@ -136,7 +146,7 @@ export default function Questions(props) {
                             e.preventDefault();
                         }} className='text-white p-4'>Next</button>
                     }
-                    {isLastQuestion() && <input type="submit" value="Submit" onSubmit={onSubmit}/>}
+                    {isLastQuestion() && <button onClick={onSubmit} className='text-white p-4'>Submit</button>}
                 </form>
 
             </motion.div>
